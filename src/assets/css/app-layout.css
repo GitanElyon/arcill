@@ -1,0 +1,181 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: var(--color-background-soft);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logo-area .site-title {
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--color-heading);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 500;
+  transition: color 0.2s;
+  font-size: 0.95rem;
+}
+
+nav a:hover, nav a.router-link-active {
+  color: #42b883;
+}
+
+.account-area {
+  position: relative;
+}
+
+/* Remove old profile-trigger styles as they are redefined below */
+
+.account-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.8rem;
+  background-color: var(--color-background-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  min-width: 200px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-header {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.account-dropdown hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: 0.5rem 0;
+}
+
+.profile-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-text);
+  transition: all 0.2s;
+}
+
+.profile-trigger {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: var(--color-background-mute);
+  position: relative;
+  transition: all 0.2s;
+}
+
+.profile-trigger:hover {
+  background-color: var(--color-background-soft);
+}
+
+.profile-trigger.is-active .profile-icon {
+  color: #42b883;
+  filter: drop-shadow(0 0 2px rgba(66, 184, 131, 0.4));
+}
+
+.cart-badge-counter {
+  position: absolute;
+  /* move it to the top left of the word "Cart" */
+  transform: translate(150%, -150%);
+  background-color: #ff4d4d;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid var(--color-background);
+}
+
+.cart-counter {
+  background-color: #e53935;
+  color: white;
+  padding: 0.1rem 0.4rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-left: auto;
+}
+
+.account-dropdown a {
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-btn {
+  background: none;
+  border: none;
+  padding: 0.6rem 1rem;
+  text-align: left;
+  color: #42b883;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-btn.logout {
+  color: #e74c3c;
+}
+
+.main-content {
+  flex: 1;
+}
+
+footer {
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: auto;
+  border-top: 1px solid var(--color-border);
+}
+
+.dropdown-fade-enter-active, .dropdown-fade-leave-active {
+  transition: opacity 0.2s, transform 0.2s;
+}
+.dropdown-fade-enter-from, .dropdown-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}

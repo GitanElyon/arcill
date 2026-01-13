@@ -1,0 +1,228 @@
+.speaking-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.header-section h1 {
+    font-size: 2.5rem;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+}
+
+.header-section .intro {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Remove old hero styles */
+
+.speaking-layout {
+    padding: 0;
+}
+
+.section-block {
+    margin-bottom: 6rem;
+}
+
+.text-content {
+  line-height: 1.8;
+  color: var(--color-text);
+  font-size: 1.15rem;
+  padding: 0 5rem;
+}
+
+.text-content p {
+  margin-bottom: 2rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Bullet List Style */
+.topic-list {
+  max-width: 800px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.topic-item {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.topic-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 10px;
+  height: 10px;
+  background-color: #42b883;
+  border-radius: 50%;
+}
+
+.topic-item h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+  color: var(--color-heading);
+}
+
+.topic-item p {
+  margin: 0;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Remove old Grid cards */
+
+.topic-list {
+  max-width: 800px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.topic-item {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.topic-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 10px;
+  height: 10px;
+  background-color: #42b883;
+  border-radius: 50%;
+}
+
+.topic-item h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+  color: var(--color-heading);
+}
+
+.topic-item p {
+  margin: 0;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Old Grid/Card Styles Removed for Cleanup */
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    background-color: #fff; /* Assuming light theme or adapt variable */
+    background-color: var(--color-background-mute);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border-left: 4px solid #42b883;
+    font-style: italic;
+}
+
+.testimonial-card p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+}
+
+.testimonial-card cite {
+    font-style: normal;
+    font-weight: bold;
+    color: var(--color-heading);
+    display: block;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .speaking-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cta-card h2 {
+    margin-top: 0;
+    color: white;
+}
+
+.cta-card p {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.rates-hint {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+.btn-primary {
+    display: inline-block;
+    text-align: center;
+    background-color: #42b883;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #3aa876;
+    transform: translateY(-2px);
+}
+
+hr {
+    width: 60px;
+    height: 4px;
+    background-color: #42b883;
+    border: none;
+    margin: 1rem auto 2rem auto;
+    border-radius: 2px;
+}

@@ -1,0 +1,215 @@
+.account-view {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.account-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.account-nav button {
+  text-align: left;
+  padding: 0.8rem 1rem;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.account-nav button.active {
+  background-color: rgba(66, 184, 131, 0.1);
+  color: #42b883;
+  border-color: #42b883;
+  font-weight: bold;
+}
+
+.tab-section h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--color-background-mute);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    border-radius: 4px;
+}
+
+.mock-card {
+    background: linear-gradient(135deg, #2c3e50, #4b79a1);
+    width: 320px;
+    height: 180px;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.card-number {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    margin: 1rem 0;
+}
+
+.card-chip {
+    width: 40px;
+    height: 30px;
+    background-color: #f1c40f;
+    border-radius: 4px;
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: 120px 1fr 100px;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    align-items: center;
+}
+
+.history-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.history-title {
+    font-weight: 500;
+}
+
+.history-price {
+    text-align: right;
+    font-weight: bold;
+}
+
+.pref-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.hint {
+    color: #888;
+    font-size: 0.85rem;
+    margin-left: 2.5rem;
+}
+
+.btn-primary {
+    padding: 0.8rem 2rem;
+    background-color: #42b883;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-secondary {
+    padding: 0.6rem 1.2rem;
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Danger Zone */
+.danger-zone {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.danger-zone h3 {
+    color: #e63946;
+    margin-bottom: 0.5rem;
+}
+
+.danger-zone p {
+    margin-bottom: 1rem;
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.btn-danger {
+    background-color: transparent;
+    border: 1px solid #e63946;
+    color: #e63946;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #e63946;
+    color: white;
+}
+
+/* Card Edit Form */
+.card-edit-form {
+    max-width: 400px;
+    background: var(--color-background-soft);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.half {
+    flex: 1;
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
