@@ -50,3 +50,4 @@ bun run build
 bun lint
 ```
 
+Note to self: switching to Cloudflare R2 for image storage
