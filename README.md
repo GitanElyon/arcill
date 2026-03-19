@@ -67,3 +67,19 @@ Preview production output locally:
 ```sh
 npm run preview
 ```
+
+### Cloudflare Pages CI settings
+
+If deploying through Cloudflare Pages Git integration, use:
+
+- Install command: `npm ci`
+- Build command: `npm run build`
+- Deploy command: *(leave empty)*
+
+If you need a manual CLI deploy (outside Pages Git integration), use:
+
+```sh
+npm run deploy:pages
+```
+
+Do **not** use `wrangler deploy` for this project, because this app builds as a Cloudflare **Pages** target (`cloudflare-pages` preset), not a standalone Workers entrypoint.

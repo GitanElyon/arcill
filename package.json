@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
+    "deploy:pages": "wrangler --cwd dist pages deploy",
     "preview": "nuxt preview",
     "type-check": "nuxt typecheck",
     "lint": "eslint . --fix --cache",
