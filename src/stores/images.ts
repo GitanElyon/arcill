@@ -82,106 +82,45 @@ export const useImageStore = defineStore('images', () => {
 
   const getStandardPrices = (): ImagePrice[] => [...STANDARD_RESOLUTIONS]
 
-  const images = ref<ImageItem[]>([
-    {
-      id: '1',
-      title: 'Roman Forum Reconstruction',
-      description: 'A detailed reconstruction of the Roman Forum during the Imperial period.',
-      timePeriod: 'Roman Period',
-      year: 200,
-      country: 'Rome',
-      tags: ['Roman', 'Architecture', 'City', 'Imperial'],
-      artist: 'John Doe',
-      imageUrl: 'https://placehold.co/600x400?text=Roman+Forum',
-      prices: getStandardPrices(),
-      dateAdded: new Date('2023-01-15'),
-      views: 1250
-    },
-    {
-      id: '2',
-      title: 'Medieval Castle Siege',
-      description: 'Scene depicting the siege of a 13th-century castle.',
-      timePeriod: 'Iron Age II', 
-      year: 1200,
-      country: 'France',
-      tags: ['Medieval', 'Warfare', 'Castle', 'Military'],
-      artist: 'Jane Smith',
-      imageUrl: 'https://placehold.co/600x400?text=Medieval+Siege',
-      prices: getStandardPrices(),
-      dateAdded: new Date('2023-06-20'),
-      views: 890
-    },
-    {
-      id: '3',
-      title: 'Temple of Karnak',
-      description: 'Interior view of the Temple of Karnak.',
-      timePeriod: 'Middle Bronze Age',
-      year: -1500,
-      country: 'Egypt',
-      tags: ['Egyptian', 'Temple', 'Religion', 'Interior'],
-      artist: 'John Doe',
-      imageUrl: 'https://placehold.co/600x400?text=Egyptian+Temple',
-      prices: getStandardPrices(),
-      dateAdded: new Date('2022-11-05'),
-      views: 2100
-    },
-    {
-      id: '4',
-      title: 'Roman Longship',
-      description: 'Roman longship navigating rough waters.',
-      timePeriod: 'Byzantine Period', 
-      year: 900,
-      country: 'France', 
-      tags: ['Roman', 'Ship', 'Sea', 'Exploration'],
-      artist: 'Jane Smith',
-      imageUrl: 'https://placehold.co/600x400?text=Roman+Longship',
-      prices: getStandardPrices(),
-      dateAdded: new Date('2023-08-10'),
-      views: 540
-    },
-     {
-      id: '5',
-      title: 'Greek Agora Life',
-      description: 'Daily life in the ancient Greek Agora.',
-      timePeriod: 'Classical Greece',
-      year: -400,
-      country: 'Greece',
-      tags: ['Greek', 'Architecture', 'City', 'Daily Life'],
-      artist: 'Alex Johnson',
-      imageUrl: 'https://placehold.co/600x400?text=Greek+Agora',
-      prices: getStandardPrices(),
-      dateAdded: new Date('2023-09-01'),
-      views: 1530
-    },
-    {
-      id: '6',
-      title: 'Herodian Temple Mount',
-      description: 'The Temple Mount in Jerusalem during the Herodian period.',
-      timePeriod: 'Herodian Architecture',
-      year: 20,
-      country: 'Jerusalem',
-      tags: ['Jewish', 'Temple', 'Religion', 'Architecture', 'Bible'],
-      artist: 'Simon Rock',
-      imageUrl: 'https://placehold.co/600x400?text=Herodian+Temple',
-      prices: getStandardPrices(),
-      dateAdded: new Date('2023-11-15'),
-      views: 3200
-    },
-    {
-      id: '7',
-      title: 'Babylonian Procession',
-      description: 'Procession through the Ishtar Gate.',
-      timePeriod: 'Babylonian Period',
-      year: -575,
-      country: 'Iraq',
-      tags: ['Babylon', 'Gate', 'Procession', 'City'],
-      artist: 'Sarah Sands',
-      imageUrl: 'https://placehold.co/600x400?text=Ishtar+Gate',
-      prices: getStandardPrices(),
-      dateAdded: new Date('2023-10-30'),
-      views: 980
+  const images = ref<ImageItem[]>([])
+  const isLoading = ref(false)
+
+  async function loadImages() {
+    if (isLoading.value) return
+    isLoading.value = true
+
+    try {
+      const response = await $fetch<Array<Omit<ImageItem, 'dateAdded' | 'prices'> & { dateAdded: string, prices?: ImagePrice[] }>>('/api/images')
+      images.value = response.map((image) => ({
+        ...image,
+        prices: image.prices?.length ? image.prices : getStandardPrices(),
+        dateAdded: new Date(image.dateAdded)
+      }))
+    } finally {
+      isLoading.value = false
     }
-  ])
+  }
+
+  if (import.meta.client) {
+    loadImages().catch(() => {
+      images.value = [
+        {
+          id: '1',
+          title: 'Roman Forum Reconstruction',
+          description: 'A detailed reconstruction of the Roman Forum during the Imperial period.',
+          timePeriod: 'Roman Period',
+          year: 200,
+          country: 'Rome',
+          tags: ['Roman', 'Architecture', 'City', 'Imperial'],
+          artist: 'ArcIll',
+          imageUrl: 'https://placehold.co/600x400?text=Roman+Forum',
+          prices: getStandardPrices(),
+          dateAdded: new Date('2023-01-15'),
+          views: 1250
+        }
+      ]
+    })
+  }
 
   // Filters state
   const searchQuery = ref('')
@@ -289,6 +228,8 @@ export const useImageStore = defineStore('images', () => {
     recentImages,
     popularImages,
     popularTags,
+    loadImages,
+    isLoading,
     resetFilters
   }
 })

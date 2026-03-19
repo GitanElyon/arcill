@@ -38,4 +38,4 @@ function handleBuy(image: ImageItem) {
 }
 </script>
 
-<style scoped src="@/assets/css/bookmarks-view.css"></style>
+<style scoped src="~/src/assets/css/bookmarks-view.css"></style>

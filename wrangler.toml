@@ -1,0 +1,17 @@
+name = "arcill"
+compatibility_date = "2026-03-19"
+pages_build_output_dir = ".output/public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "arcill-db"
+database_id = "718f2818-6f67-42c5-8c54-ed1d9604a7df"
+
+[[r2_buckets]]
+binding = "IMAGES_BUCKET"
+bucket_name = "arcill-images"
+
+[vars]
+CLOUDFLARE_IMAGES_ACCOUNT_HASH = "replace-with-images-account-hash"
+CLOUDFLARE_IMAGES_VARIANT = "thumbnail"
+R2_PUBLIC_BASE_URL = "https://pub-590d8ae9daed4e628149ef50b42143f0.r2.dev"

@@ -49,4 +49,4 @@ const faqs = [
 ]
 </script>
 
-<style scoped src="@/assets/css/faq-view.css"></style>
+<style scoped src="~/src/assets/css/faq-view.css"></style>

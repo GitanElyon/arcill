@@ -63,20 +63,25 @@ watch(() => props.initialMode, (newMode) => {
 
 async function handleSubmit() {
   isLoading.value = true
-  await new Promise(resolve => setTimeout(resolve, 1000))
   
-  if (isRegister.value) {
-      // Mock registration
-      userStore.login() // Simplified for now, assuming auto-login after register
-      userStore.account.name = name.value
-      notify.add('success', `Account created! Welcome, ${name.value}!`)
-  } else {
-      userStore.login()
+  try {
+    await userStore.login({
+      email: email.value,
+      name: isRegister.value ? name.value : undefined,
+    })
+
+    if (isRegister.value) {
+      notify.add('success', `Account created! Welcome, ${userStore.account.name}!`)
+    } else {
       notify.add('success', `Welcome back, ${userStore.account.name}!`)
+    }
+
+    emit('close')
+  } catch {
+    notify.add('error', 'Unable to authenticate right now. Please try again.')
+  } finally {
+    isLoading.value = false
   }
-  
-  isLoading.value = false
-  emit('close')
 }
 </script>
 

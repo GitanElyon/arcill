@@ -507,5 +507,5 @@ function addToCart() {
 }
 </script>
 
-<style scoped src="@/assets/css/collections-view.css"></style>
+<style scoped src="~/src/assets/css/collections-view.css"></style>
 

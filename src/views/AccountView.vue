@@ -203,7 +203,8 @@ const newCardForm = ref({
     cvc: ''
 })
 
-function updateAccount() {
+async function updateAccount() {
+  await userStore.saveAccount()
   notify.add('success', 'Account details updated successfully.')
 }
 
@@ -217,9 +218,9 @@ function updateAccount() {
 //     }
 // }
 
-function handleDeleteAccount() {
+async function handleDeleteAccount() {
     if (confirm('Are you certain you want to delete your account? This action cannot be undone.')) {
-        userStore.deleteAccount()
+    await userStore.deleteAccount()
         notify.add('info', 'Account deleted. We are sorry to see you go.')
         router.push('/')
     }
@@ -250,4 +251,4 @@ function updatePassword() {
 }
 </script>
 
-<style scoped src="@/assets/css/account-view.css"></style>
+<style scoped src="~/src/assets/css/account-view.css"></style>

@@ -43,5 +43,5 @@ defineEmits<{
 }>()
 </script>
 
-<style scoped src="@/assets/css/image-card.css"></style>
+<style scoped src="~/src/assets/css/image-card.css"></style>
 

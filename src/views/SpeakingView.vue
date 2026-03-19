@@ -77,4 +77,4 @@
   </div>
 </template>
 
-<style scoped src="@/assets/css/speaking-view.css"></style>
+<style scoped src="~/src/assets/css/speaking-view.css"></style>

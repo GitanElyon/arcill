@@ -102,5 +102,5 @@ function stopDrag() {
 }
 </script>
 
-<style scoped src="@/assets/css/range-slider.css"></style>
+<style scoped src="~/src/assets/css/range-slider.css"></style>
 

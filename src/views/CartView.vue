@@ -359,4 +359,4 @@ function handleSugBuy(image: ImageItem) {
 }
 </script>
 
-<style scoped src="@/assets/css/cart-view.css"></style>
+<style scoped src="~/src/assets/css/cart-view.css"></style>

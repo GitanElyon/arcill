@@ -1,53 +1,71 @@
 # Archaeology Illustrated (ArcIll)
 
-A Vue 3 + Vite e-commerce platform for archaeology illustrated. This application allows users to browse high-quality historical visualizations, purchase commercial licenses, and manage their collections.
+Nuxt 3 storefront running on Cloudflare's ecosystem:
+- Cloudflare Pages for hosting and edge runtime
+- Cloudflare D1 for user profile data
+- Cloudflare R2 for image object storage
+- Cloudflare Images delivery URLs for thumbnail rendering
 
+### Cloudflare free tier usage:
+- D1: 10k reads/writes per day, 10GB storage
+- R2: 5GB storage, 1GB egress per day
+- Images: 5k transformations per month
 
-## Project Structure
+## Architecture
 
-```
-src/
-├── assets/                 # Static assets and CSS
-│   ├── css/                # View-specific and global styles
-│   └── ...
-├── components/             # Reusable Vue components
-│   ├── LoginModal.vue      # Authentication popup
-│   ├── NotificationToast.vue # Toast system
-│   └── ...
-├── stores/                 # Pinia State Management
-│   ├── cart.ts             # Shopping cart logic (part of user.ts)
-│   ├── images.ts           # Image data source
-│   ├── notifications.ts    # Notification queue state
-│   └── user.ts             # User profiles and settings
-├── views/                  # Page Components
-│   ├── AccountView.vue     # User settings and history
-│   ├── CartView.vue        # Checkout flow
-│   ├── CollectionsView.vue # Main gallery with filtering
-│   └── ...
-├── App.vue                 # Main layout and global overlays
-└── main.ts                 # App entry point
-```
+- `app.vue` provides the global site shell and navigation.
+- `pages/` maps Nuxt routes to existing `src/views/*` components.
+- `server/api/user/*` persists user profile data in D1.
+- `server/api/images.get.ts` returns image records and thumbnail URLs.
+- `server/api/images/upload.post.ts` uploads new objects to R2.
+- `server/utils/cloudflare.ts` centralizes D1/R2/Images runtime helpers.
 
-## Setup & Development
+## Local Development
 
-### Project Setup
+Install deps:
+
 ```sh
-bun install
+npm install
 ```
 
-### Compile and Hot-Reload for Development
+Run Nuxt dev server:
+
 ```sh
-bun dev
+npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Type-check:
+
 ```sh
-bun run build
+npm run type-check
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Cloudflare Setup
+
+1. Update `wrangler.toml`:
+	- Replace `database_id` for `DB`.
+	- Set real R2 bucket name.
+	- Set `CLOUDFLARE_IMAGES_ACCOUNT_HASH`.
+	- Set `R2_PUBLIC_BASE_URL`.
+2. Ensure bindings in Pages project match:
+	- `DB` (D1)
+	- `IMAGES_BUCKET` (R2)
+	- `CLOUDFLARE_IMAGES_ACCOUNT_HASH` (var)
+	- `CLOUDFLARE_IMAGES_VARIANT` (var, e.g. `thumbnail`)
+	- `R2_PUBLIC_BASE_URL` (var)
+
+## Build & Deploy
+
+Build Nuxt for Cloudflare Pages:
+
 ```sh
-bun lint
+npm run build
+```
+
+Preview production output locally:
+
+```sh
+npm run preview
 ```
 
 Note to self: switching to Cloudflare R2 for image storage

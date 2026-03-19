@@ -58,4 +58,4 @@
   </div>
 </template>
 
-<style scoped src="@/assets/css/about-view.css"></style>
+<style scoped src="~/src/assets/css/about-view.css"></style>

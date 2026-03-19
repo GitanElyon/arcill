@@ -62,4 +62,4 @@ const store = useImageStore()
   </main>
 </template>
 
-<style scoped src="@/assets/css/home-view.css"></style>
+<style scoped src="~/src/assets/css/home-view.css"></style>

@@ -119,5 +119,5 @@ export default {
 /* Global resets or base styles are in main.css */
 </style>
 
-<style scoped src="@/assets/css/app-layout.css"></style>
+<style scoped src="~/src/assets/css/app-layout.css"></style>
 

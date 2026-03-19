@@ -26,10 +26,31 @@ export interface UserAccount {
   purchaseHistory: { date: Date, title: string, price: number }[]
 }
 
+interface LoginPayload {
+  email: string
+  name?: string
+}
+
+const USER_EMAIL_STORAGE_KEY = 'arcill-user-email'
+
+const defaultAccountState: UserAccount = {
+  name: 'Guest',
+  email: '',
+  address: '',
+  city: '',
+  country: '',
+  zip: '',
+  cardNumber: '',
+  savedCards: [],
+  isSubscribed: false,
+  purchaseHistory: []
+}
+
 export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false)
   const bookmarks = ref<string[]>([]) // Array of image IDs
   const cart = ref<CartItem[]>([])
+  const activeEmail = ref('')
   
   const account = ref<UserAccount>({
     name: 'Balage Balogh',
@@ -48,6 +69,62 @@ export const useUserStore = defineStore('user', () => {
       { date: new Date('2023-05-15'), title: 'Roman Longship', price: 60 }
     ]
   })
+
+  const applyServerProfile = (profile: {
+    name: string
+    email: string
+    address: string
+    city: string
+    country: string
+    zip: string
+    cardNumber: string
+    isSubscribed: boolean
+  }) => {
+    account.value = {
+      ...account.value,
+      ...profile,
+      savedCards: account.value.savedCards,
+      purchaseHistory: account.value.purchaseHistory
+    }
+  }
+
+  const persistActiveEmail = (email: string) => {
+    if (import.meta.client) {
+      if (email) {
+        localStorage.setItem(USER_EMAIL_STORAGE_KEY, email)
+      } else {
+        localStorage.removeItem(USER_EMAIL_STORAGE_KEY)
+      }
+    }
+  }
+
+  async function fetchProfile(email: string) {
+    const response = await $fetch<{ user: {
+      name: string
+      email: string
+      address: string
+      city: string
+      country: string
+      zip: string
+      cardNumber: string
+      isSubscribed: boolean
+    } }>('/api/user/profile', {
+      query: { email }
+    })
+
+    applyServerProfile(response.user)
+  }
+
+  if (import.meta.client) {
+    const storedEmail = localStorage.getItem(USER_EMAIL_STORAGE_KEY)
+    if (storedEmail) {
+      activeEmail.value = storedEmail
+      isLoggedIn.value = true
+      fetchProfile(storedEmail).catch(() => {
+        logout()
+      })
+    }
+  }
 
   // Bookmarks logic
   function toggleBookmark(imageId: string) {
@@ -77,12 +154,56 @@ export const useUserStore = defineStore('user', () => {
     return cart.value.reduce((total, item) => total + item.price.price, 0)
   })
 
-  function login() {
-    isLoggedIn.value = true
+  async function login(payload?: LoginPayload) {
+    if (!payload?.email) {
+      isLoggedIn.value = true
+      return
+    }
+
+    const response = await $fetch<{ success: boolean, user: {
+      name: string
+      email: string
+      address: string
+      city: string
+      country: string
+      zip: string
+      cardNumber: string
+      isSubscribed: boolean
+    } | null }>('/api/user/login', {
+      method: 'POST',
+      body: payload
+    })
+
+    if (response.user) {
+      applyServerProfile(response.user)
+      activeEmail.value = response.user.email
+      isLoggedIn.value = true
+      persistActiveEmail(response.user.email)
+    }
   }
 
   function logout() {
     isLoggedIn.value = false
+    activeEmail.value = ''
+    persistActiveEmail('')
+  }
+
+  async function saveAccount() {
+    if (!account.value.email) return
+
+    await $fetch('/api/user/profile', {
+      method: 'PUT',
+      body: {
+        name: account.value.name,
+        email: account.value.email,
+        address: account.value.address,
+        city: account.value.city,
+        country: account.value.country,
+        zip: account.value.zip,
+        cardNumber: account.value.cardNumber,
+        isSubscribed: account.value.isSubscribed
+      }
+    })
   }
 
   function updateCard(newCardNumber: string) {
@@ -99,23 +220,20 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  function deleteAccount() {
+  async function deleteAccount() {
+    if (account.value.email) {
+      await $fetch('/api/user/profile', {
+        method: 'DELETE',
+        body: { email: account.value.email }
+      })
+    }
+
     isLoggedIn.value = false
+    activeEmail.value = ''
+    persistActiveEmail('')
     bookmarks.value = []
     cart.value = []
-    // Reset to initial state or just clear sensitive data
-    account.value = {
-        name: 'Guest', 
-        email: '', 
-        address: '', 
-        city: '',
-        country: '',
-        zip: '',
-        cardNumber: '', 
-        savedCards: [],
-        isSubscribed: false, 
-        purchaseHistory: []
-    }
+    account.value = { ...defaultAccountState }
   }
 
   return {
@@ -130,6 +248,7 @@ export const useUserStore = defineStore('user', () => {
     cartTotal,
     login,
     logout,
+    saveAccount,
     deleteAccount,
     updateCard
   }

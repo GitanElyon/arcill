@@ -123,5 +123,5 @@ const vClickOutside = {
 }
 </script>
 
-<style scoped src="@/assets/css/custom-dropdown.css"></style>
+<style scoped src="~/src/assets/css/custom-dropdown.css"></style>
 
