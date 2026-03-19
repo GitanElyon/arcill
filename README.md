@@ -7,8 +7,8 @@ Nuxt 3 storefront running on Cloudflare's ecosystem:
 - Cloudflare Images delivery URLs for thumbnail rendering
 
 ### Cloudflare free tier usage:
-- D1: 10k reads/writes per day, 10GB storage
-- R2: 5GB storage, 1GB egress per day
+- D1: 5GB storage, 100k requests per day
+- R2: 10GB storage
 - Images: 5k transformations per month
 
 ## Architecture
@@ -67,5 +67,3 @@ Preview production output locally:
 ```sh
 npm run preview
 ```
-
-Note to self: switching to Cloudflare R2 for image storage
